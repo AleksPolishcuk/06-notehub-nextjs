@@ -3,7 +3,7 @@
 import { useQuery, DehydratedState, QueryKey } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api";
 import { useParams } from "next/navigation";
-import css from "./NoteDetails.module.css";
+import css from "./NoteDetails.client.module.css";
 import type { Note } from "@/types/note";
 
 interface DehydratedQuery {
