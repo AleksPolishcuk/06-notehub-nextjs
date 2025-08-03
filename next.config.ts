@@ -1,11 +1,11 @@
 import type { NextConfig } from "next";
 
-const nextConfig = {
+const NextConfig = {
   experimental: {
-    typedRoutes: false, // Вимкнути строгу типізацію маршрутів
+    typedRoutes: false,
   },
   typescript: {
-    ignoreBuildErrors: true, // Тимчасово ігнорувати помилки TypeScript
+    ignoreBuildErrors: true,
   },
 };
-export default nextConfig;
+export default NextConfig;

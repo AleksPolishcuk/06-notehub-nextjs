@@ -3,7 +3,6 @@ import NoteDetailsClient from "./NoteDetails.client";
 import { fetchNoteById } from "@/lib/api";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 
-// Додайте цей інтерфейс
 export interface PageProps {
   params: { id: string };
   searchParams?: { [key: string]: string | string[] | undefined };
