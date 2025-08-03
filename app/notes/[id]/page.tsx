@@ -1,10 +1,19 @@
+import { Metadata } from "next";
 import NoteDetailsClient from "./NoteDetails.client";
 import { fetchNoteById } from "@/lib/api";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 
-interface PageProps {
-  params: {
-    id: string;
+// Додайте цей інтерфейс
+export interface PageProps {
+  params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  return {
+    title: `Note ${params.id}`,
   };
 }
 
