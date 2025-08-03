@@ -21,7 +21,8 @@ export default function NoteDetailsClient({
   id: string;
 }) {
   const params = useParams();
-  const noteId = Number(params?.id || id);
+  const paramsId = params?.id;
+  const noteId = Array.isArray(paramsId) ? paramsId[0] : paramsId || id;
 
   const {
     data: note,

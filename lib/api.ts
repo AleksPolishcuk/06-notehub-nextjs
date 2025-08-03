@@ -28,7 +28,7 @@ export const fetchNotes = async ({
     params: {
       page,
       perPage,
-      ...(search && { search }),
+      search: search || undefined,
     },
   });
 
@@ -40,9 +40,14 @@ export const fetchNotes = async ({
   };
 };
 
-export const fetchNoteById = async (id: number): Promise<Note> => {
-  const response = await axios.get(`/notes/${id}`);
-  return response.data;
+export const fetchNoteById = async (id: string): Promise<Note> => {
+  try {
+    const response = await axios.get(`/notes/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch note:", error);
+    throw new Error("Failed to fetch note");
+  }
 };
 
 export const createNote = async (note: {
@@ -54,7 +59,7 @@ export const createNote = async (note: {
   return response.data;
 };
 
-export const deleteNote = async (id: number): Promise<Note> => {
+export const deleteNote = async (id: string): Promise<Note> => {
   const response = await axios.delete(`/notes/${id}`);
   return response.data;
 };
