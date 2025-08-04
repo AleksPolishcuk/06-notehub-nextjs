@@ -12,6 +12,11 @@ export interface FetchNotesParams {
   search?: string;
 }
 
+export interface RawNotesResponse {
+  notes: Note[];
+  totalPages: number;
+}
+
 export interface FetchNotesResponse {
   page: number;
   data: Note[];
@@ -24,11 +29,11 @@ export const fetchNotes = async ({
   perPage = 12,
   search,
 }: FetchNotesParams): Promise<FetchNotesResponse> => {
-  const response = await axios.get("/notes", {
+  const response = await axios.get<RawNotesResponse>("/notes", {
     params: {
       page,
       perPage,
-      search: search || undefined,
+      ...(search && { search }),
     },
   });
 
@@ -41,13 +46,8 @@ export const fetchNotes = async ({
 };
 
 export const fetchNoteById = async (id: string): Promise<Note> => {
-  try {
-    const response = await axios.get(`/notes/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error("Failed to fetch note:", error);
-    throw new Error("Failed to fetch note");
-  }
+  const response = await axios.get<Note>(`/notes/${id}`);
+  return response.data;
 };
 
 export const createNote = async (note: {
@@ -55,11 +55,11 @@ export const createNote = async (note: {
   content: string;
   tag: NoteTag;
 }): Promise<Note> => {
-  const response = await axios.post("/notes", note);
+  const response = await axios.post<Note>("/notes", note);
   return response.data;
 };
 
 export const deleteNote = async (id: string): Promise<Note> => {
-  const response = await axios.delete(`/notes/${id}`);
+  const response = await axios.delete<Note>(`/notes/${id}`);
   return response.data;
 };
